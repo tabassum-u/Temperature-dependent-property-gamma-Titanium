@@ -1,0 +1,94 @@
+import pandas as pd
+import numpy
+
+# for specific heat
+
+x = range(400, 1431, 1)
+temperature = []
+cp = []
+for temp in x:
+    temperature.append(temp)
+    specific_heat = 0.6324 + 7.44 * 10**-5 * temp - 2.07 * 10**-7 * temp**2 + 2.97 * 10**-10 * temp**3
+    cp.append(specific_heat)
+
+temperature_array = numpy.array(temperature)
+cp_array = numpy.array(cp)
+data_cp = pd.DataFrame([temperature_array, cp_array])
+data_trans_cp = data_cp.T
+print(data_trans_cp)
+data_trans_cp.to_excel('heat capacity solid gamma.xlsx', index=False, header=False)
+
+# density (Thermophysical Properties of γ -Titanium) (DOI 10.1007/s10765-007-0219-6)
+
+TL = 1573
+y = range(1310, 1676, 1)
+T_den = []
+rho_den = []
+for T in y:
+    T_den.append(T)
+    rho = 3.85 - 0.03 + (-4.57-0.19) * 10**-4 * (T-TL)
+    rho_den.append(rho)
+
+T_array = numpy.array(T_den)
+rho_array = numpy.array(rho_den)
+data_rho = pd.DataFrame([T_array, rho_array])
+data_trans_rho = data_rho.T
+print(data_trans_rho)
+data_trans_rho.to_excel('density_liquid_gamma.xlsx', index=False, header=False)
+
+"""""
+# thermal conductivity
+
+z = range(25, 761, 1)
+T_cond = []
+lamda_cond = []
+for T in z:
+    T_cond.append(T)
+    lamda = 21.7959 + 8.1633 * 10 ** -3 * T
+    lamda_cond.append(lamda)
+
+T_cond_array = numpy.array(T_cond)
+lamda_cond_array = numpy.array(lamda_cond)
+data_lamda = pd.DataFrame([T_cond_array, lamda_cond_array])
+data_trans_lamda = data_lamda.T
+print(data_trans_lamda)
+data_trans_lamda.to_excel('thermal_conduc_TiAl.xlsx', index=False, header=False)
+
+"""""
+
+# thermal diffusivity
+
+ab = range(20, 1301, 1)
+T_diffu = []
+alpha_diffu = []
+for T in ab:
+    T_diffu.append(T)
+    alpha = - 3.01 * 10 ** -9 * T ** 3 - 4.30 * 10 ** -7 * T ** 2 + 5.18 * 10 ** -3 * T + 5.36
+    alpha_diffu.append(alpha)
+
+T_diffu_array = numpy.array(T_diffu)
+alpha_diffu_array = numpy.array(alpha_diffu)
+data_alpha = pd.DataFrame([T_diffu_array, alpha_diffu_array])
+data_trans_alpha = data_alpha.T
+print(data_trans_alpha)
+data_trans_alpha.to_excel('thermal_diffu.xlsx', index=False, header=False)
+
+
+# surface tension (Thermophysical Properties of γ -Titanium) (DOI 10.1007/s10765-007-0219-6)
+
+TL = 1573
+bc = range(1310, 1676, 1)
+T_surf = []
+gamma_surf = []
+for T in bc:
+    T_surf.append(T)
+    gamma = 1.114 - 0.05 + (-2.17-0.3) * 10**-4 * (T-TL)
+    gamma_surf.append(gamma)
+
+T_surf_array = numpy.array(T_surf)
+gamma_array = numpy.array(gamma_surf)
+data_gamma = pd.DataFrame([T_surf_array, gamma_array])
+data_trans_gamma = data_gamma.T
+print(data_trans_gamma)
+data_trans_gamma.to_excel('surface_gamma.xlsx', index=False, header=False)
+
